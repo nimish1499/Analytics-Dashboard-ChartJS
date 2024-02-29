@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Eudoxus Sans", sans-serif;
+  scroll-behavior: smooth;
+}
+
+.gradient-01 {
+  background-image: linear-gradient(
+    270deg,
+    hsl(295deg 76% 51%) 0%,
+    hsl(284deg 70% 73%) 26%,
+    hsl(257deg 70% 86%) 39%,
+    hsl(202deg 92% 90%) 50%,
+    hsl(215deg 77% 81%) 61%,
+    hsl(221deg 73% 70%) 74%,
+    hsl(220deg 76% 51%) 100%
+  );
+  filter: blur(125px);
+}
+
+.hero-gradient {
+  background: linear-gradient(
+    97.86deg,
+    #a509ff 0%,
+    #34acc7 53.65%,
+    #a134c7 100%
+  );
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100px;
+  margin: 0 1rem;
+}
+
+.header img{
+  width: 100px;
+  height: 80px;
+}
+
+.header-img{
+  flex-grow: 1;
+  min-width: 100px;
+  cursor: pointer;
+  display: flex;
+}
+
+.header-center{
+  display: flex;
+  justify-content: space-between; /* Distribute volumes evenly */
+  align-items: center;
+  cursor: pointer;
+  overflow-x: scroll;
+  margin-left: 2rem;
+}
+
+.header-item{
+  margin: 0 10px;
+  white-space: pre;
+  font-size: 16px;
+
+}
+
+.theme-toggle{
+  cursor: pointer;
+}
+.active
+{
+  color: #34acc7;
+  font-size: 18px;
+  font-weight: 700;
+}
+.header-item :hover{
+  color: #34acc7;
+}
+
+.loader {
+  border: 8px solid #3498db; /* Blue color */
+  border-radius: 50%;
+  border-top: 8px solid cyan; /* Cyan color */
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -25px; /* Half of the height */
+  margin-left: -25px; /* Half of the width */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -34,7 +34,7 @@ const Index = () => {
     router?.query?.year ?? "2023"
   );
   const [salesData, setSalesData] = useState({});
-  const [showChart, setShowChart] = useState(false); // Loading state
+  const [showChart, setShowChart] = useState(false);
 
   useEffect(() => {
     setShowChart(false);
@@ -90,7 +90,7 @@ const Index = () => {
 
   return (
     <>
-      {loading ? ( // Check if data is loading
+      {loading ? (
         <Loader />
       ) : (
         <>

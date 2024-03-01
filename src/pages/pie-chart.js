@@ -131,7 +131,7 @@ const Index = () => {
                     <Flex
                       direction="column"
                       alignItems="center"
-                      style={{ maxHeight: "70vh", margin: "40px 0" }} // Add marginBottom
+                      style={{ maxHeight: "70vh", margin: "40px 0" }}
                     >
                       <PieChart data={totalSalesData} />
                       <h3>Total Sales</h3>
@@ -139,7 +139,7 @@ const Index = () => {
                     <Flex
                       direction="column"
                       alignItems="center"
-                      style={{ maxHeight: "70vh", marginBottom: "40px" }} // Add marginBottom
+                      style={{ maxHeight: "70vh", marginBottom: "40px" }}
                     >
                       <PieChart data={totalRevenueData} />
                       <h3>Total Revenue</h3>
@@ -147,7 +147,7 @@ const Index = () => {
                     <Flex
                       direction="column"
                       alignItems="center"
-                      style={{ maxHeight: "70vh", marginBottom: "40px" }} // Add marginBottom
+                      style={{ maxHeight: "70vh", marginBottom: "40px" }}
                     >
                       <PieChart data={totalActiveUsersData} />
                       <h3>Total Active Users</h3>

@@ -22,7 +22,6 @@ const MyApp = ({ Component, pageProps }) => (
     <ChakraProvider>
       <Provider store={store}>
         <Header/>
-        {/* Render your component */}
         <Component {...pageProps} />
       </Provider>
     </ChakraProvider>

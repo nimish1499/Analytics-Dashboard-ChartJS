@@ -3,32 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  useColorModeValue,
-  useDisclosure,
-  useBreakpointValue,
-  Flex,
-} from "@chakra-ui/react";
+import { Box, useColorModeValue, Flex } from "@chakra-ui/react";
 
 import {
   fetchData,
   fetchTopSelling,
 } from "../redux/chartData/chartData.action";
-import { generateRandomColor } from "../scripts/generateColors";
+
 import PieChart from "../components/PieChart";
 
 const Loader = dynamic(() => import("../components/Loader"));
 const SelectYear = dynamic(() => import("../components/SelectYear"));
-// const PieChart = dynamic(() => import("./PieChart"));
 
-const Sidebar = () => {
+const Index = () => {
   const router = useRouter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const isMobile = useBreakpointValue({ base: true, sm: false });
   const dispatch = useDispatch();
   const { loading, chartData, topSelling } = useSelector(
-    (store) => store.chartData
+    (store) => store?.chartData
   );
   const [queryParams, setQueryParams] = useState(router.query);
   const [selectedYear, setSelectedYear] = useState(queryParams?.year ?? "2023");
@@ -38,21 +29,21 @@ const Sidebar = () => {
       {
         label: "Total Sales",
         data: chartData?.map((data) => data?.sales),
-        backgroundColor: generateRandomColor(),
+        backgroundColor: "#0847ad",
         borderColor: "black",
         borderWidth: 2,
       },
       {
         label: "Total Revenue",
         data: chartData?.map((data) => data?.revenue),
-        backgroundColor: generateRandomColor(),
+        backgroundColor: "#9c10b2",
         borderColor: "black",
         borderWidth: 2,
       },
       {
-        label: "Total Users Active",
+        label: "Total Active Users",
         data: chartData?.map((data) => data?.userActivity),
-        backgroundColor: generateRandomColor(),
+        backgroundColor: "#0a842d",
         borderColor: "black",
         borderWidth: 2,
       },
@@ -70,23 +61,23 @@ const Sidebar = () => {
         labels: chartData?.map((data) => data?.month),
         datasets: [
           {
+            label: "Total Sales",
+            data: chartData?.map((data) => data?.sales),
+            backgroundColor: "#0847ad",
+            borderColor: "black",
+            borderWidth: 2,
+          },
+          {
             label: "Total Revenue",
             data: chartData?.map((data) => data?.revenue),
-            backgroundColor: generateRandomColor(),
+            backgroundColor: "#9c10b2",
             borderColor: "black",
             borderWidth: 2,
           },
           {
             label: "Total Active Users",
             data: chartData?.map((data) => data?.userActivity),
-            backgroundColor: generateRandomColor(),
-            borderColor: "black",
-            borderWidth: 2,
-          },
-          {
-            label: "Total Sales",
-            data: chartData?.map((data) => data?.sales),
-            backgroundColor: generateRandomColor(),
+            backgroundColor: "#0a842d",
             borderColor: "black",
             borderWidth: 2,
           },
@@ -106,9 +97,24 @@ const Sidebar = () => {
     });
   };
 
+  const totalSalesData = {
+    labels: salesData?.labels,
+    datasets: [salesData?.datasets?.[0]],
+  };
+
+  const totalRevenueData = {
+    labels: salesData?.labels,
+    datasets: [salesData?.datasets?.[1]],
+  };
+
+  const totalActiveUsersData = {
+    labels: salesData?.labels,
+    datasets: [salesData?.datasets?.[2]],
+  };
+
   return (
     <>
-      {chartData && (
+      {salesData?.datasets?.length > 0 ? (
         <div style={{ width: "100%" }}>
           <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
             <Box ml={{ base: 0 }} p="8">
@@ -121,17 +127,41 @@ const Sidebar = () => {
                 <Loader />
               ) : (
                 <>
-                  <Flex maxH={{ md: "75vh" }} justifyContent={"center"}>
-                    <PieChart data={salesData} />
-                  </Flex>
+                  <Box justifyContent="center">
+                    <Flex
+                      direction="column"
+                      alignItems="center"
+                      style={{ maxHeight: "70vh", margin: "40px 0" }} // Add marginBottom
+                    >
+                      <PieChart data={totalSalesData} />
+                      <h3>Total Sales</h3>
+                    </Flex>
+                    <Flex
+                      direction="column"
+                      alignItems="center"
+                      style={{ maxHeight: "70vh", marginBottom: "40px" }} // Add marginBottom
+                    >
+                      <PieChart data={totalRevenueData} />
+                      <h3>Total Revenue</h3>
+                    </Flex>
+                    <Flex
+                      direction="column"
+                      alignItems="center"
+                      style={{ maxHeight: "70vh", marginBottom: "40px" }} // Add marginBottom
+                    >
+                      <PieChart data={totalActiveUsersData} />
+                      <h3>Total Active Users</h3>
+                    </Flex>
+                  </Box>
+                  ;
                 </>
               )}
             </Box>
           </Box>
         </div>
-      )}
+      ) : null}
     </>
   );
 };
 
-export default Sidebar;
+export default Index;

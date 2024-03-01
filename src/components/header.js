@@ -36,31 +36,32 @@ export default function Header() {
     <>
       {!isMobile ? (
         <div className="header">
-          <Link href="/">
             <div className="header-img">
+            <Link href="/">
               <img
                 src="https://dilfoods.in/wp-content/uploads/2023/04/Dil-Foods-new-logo.png"
                 alt="dilfoods-logo"
               />
+              </Link>
               <div className="header-center">
-            {LinkItems.map((item) => (
-              <Link
-                href={`${item?.url?.toLowerCase() ?? "/"}`}
-                onClick={() => onClose()}
-              >
+            {LinkItems.map((item) => (  
                 <div
                   key={item?.name}
                   className={`header-item ${
                     router.pathname == item?.url ? "active" : ""
                   }`}
                 >
+                  <Link
+                href={`${item?.url?.toLowerCase()}`}
+                onClick={() => onClose()}
+              >
                   {item?.name ?? ""}
-                </div>
               </Link>
+                </div>
             ))}
           </div>
             </div>
-          </Link>
+
           
           <div className="theme-toggle">
             <Button onClick={toggleColorMode}>

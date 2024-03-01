@@ -1,16 +1,15 @@
+import React from "react";
+import Link from "next/link";
+
 import {
-  Avatar,
   Button,
   Flex,
   HStack,
   IconButton,
   Menu,
   MenuButton,
-  Text,
-  VStack,
   useColorMode,
 } from "@chakra-ui/react";
-import React from "react";
 import { FiMenu } from "react-icons/fi";
 import { FaMoon, FaSun } from "react-icons/fa";
 
@@ -34,6 +33,16 @@ const MobileNav = ({ onOpen, ...rest }) => {
         icon={<FiMenu />}
       />
 
+      <div>
+        <Link href="/">
+          <img
+            src="https://dilfoods.in/wp-content/uploads/2023/04/Dil-Foods-new-logo.png"
+            alt="dilfoods-logo"
+            style={{ width: "80px" }}
+          />
+        </Link>
+      </div>
+
       <HStack spacing={{ base: "0", md: "6" }}>
         <Button onClick={toggleColorMode}>
           {colorMode === "light" ? <FaMoon /> : <FaSun />}
@@ -44,8 +53,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               py={2}
               transition="all 0.3s"
               _focus={{ boxShadow: "none" }}
-            >
-            </MenuButton>
+            ></MenuButton>
           </Menu>
         </Flex>
       </HStack>

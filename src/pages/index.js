@@ -8,7 +8,6 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   useColorModeValue,
-  useDisclosure,
   useBreakpointValue,
 } from "@chakra-ui/react";
 
@@ -16,11 +15,10 @@ import {
   fetchData,
   fetchTopSelling,
 } from "../redux/chartData/chartData.action";
-import { generateRandomColor } from "../scripts/generateColors";
 
 const Loader = dynamic(() => import("../components/Loader"));
 const SelectYear = dynamic(() => import("../components/SelectYear"));
-const Ecommerce = dynamic(() => import("../components/Ecommerce"));
+const Home = dynamic(() => import("../components/Home"));
 
 const Sidebar = () => {
   const router = useRouter();
@@ -38,21 +36,21 @@ const Sidebar = () => {
       {
         label: "Total Sales",
         data: chartData?.map((data) => data?.sales),
-        backgroundColor: generateRandomColor(),
+        backgroundColor: "#0847ad",
         borderColor: "black",
         borderWidth: 2,
       },
       {
         label: "Total Revenue",
         data: chartData?.map((data) => data?.revenue),
-        backgroundColor: generateRandomColor(),
+        backgroundColor: "#9c10b2",
         borderColor: "black",
         borderWidth: 2,
       },
       {
-        label: "Total Users Active",
+        label: "Total Active Users",
         data: chartData?.map((data) => data?.userActivity),
-        backgroundColor: generateRandomColor(),
+        backgroundColor: "#0a842d",
         borderColor: "black",
         borderWidth: 2,
       },
@@ -69,23 +67,23 @@ const Sidebar = () => {
       labels: chartData?.map((data) => data?.month),
       datasets: [
         {
+          label: "Total Sales",
+          data: chartData?.map((data) => data?.sales),
+          backgroundColor: "#0847ad",
+          borderColor: "black",
+          borderWidth: 2,
+        },
+        {
           label: "Total Revenue",
           data: chartData?.map((data) => data?.revenue),
-          backgroundColor: generateRandomColor(),
+          backgroundColor: "#9c10b2",
           borderColor: "black",
           borderWidth: 2,
         },
         {
           label: "Total Active Users",
           data: chartData?.map((data) => data?.userActivity),
-          backgroundColor: generateRandomColor(),
-          borderColor: "black",
-          borderWidth: 2,
-        },
-        {
-          label: "Total Sales",
-          data: chartData?.map((data) => data?.sales),
-          backgroundColor: generateRandomColor(),
+          backgroundColor: "#0a842d",
           borderColor: "black",
           borderWidth: 2,
         },
@@ -118,7 +116,7 @@ const Sidebar = () => {
               <Loader />
             ) : (
               <>
-                <Ecommerce chartData={chartData} topSelling={topSelling} />
+                <Home chartData={chartData} topSelling={topSelling} />
               </>
             )}
           </Box>

@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   useColorModeValue,
-  useDisclosure,
   useBreakpointValue,
 } from "@chakra-ui/react";
 
@@ -14,43 +13,44 @@ import {
   fetchData,
   fetchTopSelling,
 } from "../redux/chartData/chartData.action";
-import { generateRandomColor } from "../scripts/generateColors";
+
 import LineChart from "../components/LineChart";
 
 const Loader = dynamic(() => import("../components/Loader"));
 const SelectYear = dynamic(() => import("../components/SelectYear"));
 
-const Sidebar = () => {
+const Index = () => {
   const router = useRouter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, sm: false });
   const dispatch = useDispatch();
   const { loading, chartData, topSelling } = useSelector(
-    (store) => store.chartData
+    (store) => store?.chartData
   );
   const [queryParams, setQueryParams] = useState(router.query);
-  const [selectedYear, setSelectedYear] = useState(router?.query?.year ?? "2023");
+  const [selectedYear, setSelectedYear] = useState(
+    router?.query?.year ?? "2023"
+  );
   const [salesData, setSalesData] = useState({
     labels: chartData?.map((data) => data?.month),
     datasets: [
       {
         label: "Total Sales",
         data: chartData?.map((data) => data?.sales),
-        backgroundColor: generateRandomColor(),
+        backgroundColor: "#0847ad",
         borderColor: "black",
         borderWidth: 2,
       },
       {
         label: "Total Revenue",
         data: chartData?.map((data) => data?.revenue),
-        backgroundColor: generateRandomColor(),
+        backgroundColor: "#9c10b2",
         borderColor: "black",
         borderWidth: 2,
       },
       {
-        label: "Total Users Active",
+        label: "Total Active Users",
         data: chartData?.map((data) => data?.userActivity),
-        backgroundColor: generateRandomColor(),
+        backgroundColor: "#0a842d",
         borderColor: "black",
         borderWidth: 2,
       },
@@ -63,28 +63,28 @@ const Sidebar = () => {
   }, [selectedYear, dispatch]);
 
   useEffect(() => {
-    if(typeof window){
+    if (typeof window) {
       setSalesData({
         labels: chartData?.map((data) => data?.month),
         datasets: [
           {
+            label: "Total Sales",
+            data: chartData?.map((data) => data?.sales),
+            backgroundColor: "#0847ad",
+            borderColor: "black",
+            borderWidth: 2,
+          },
+          {
             label: "Total Revenue",
             data: chartData?.map((data) => data?.revenue),
-            backgroundColor: generateRandomColor(),
+            backgroundColor: "#9c10b2",
             borderColor: "black",
             borderWidth: 2,
           },
           {
             label: "Total Active Users",
             data: chartData?.map((data) => data?.userActivity),
-            backgroundColor: generateRandomColor(),
-            borderColor: "black",
-            borderWidth: 2,
-          },
-          {
-            label: "Total Sales",
-            data: chartData?.map((data) => data?.sales),
-            backgroundColor: generateRandomColor(),
+            backgroundColor: "#0a842d",
             borderColor: "black",
             borderWidth: 2,
           },
@@ -106,32 +106,31 @@ const Sidebar = () => {
 
   return (
     <>
-    { chartData && <div style={{ width: "100%" }}>
-      <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
-        {/* <SideBarContent onClose={onClose} display={{ base: "none", md: "block" }} /> */}
+      {chartData && (
+        <div style={{ width: "100%" }}>
+          <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
+            <Box ml={{ base: 0 }} p="8">
+              <SelectYear
+                selectedYear={selectedYear}
+                onSelectYear={handleYearChange}
+              />
 
-        <Box ml={{ base: 0 }} p="8">
-          <SelectYear
-            selectedYear={selectedYear}
-            onSelectYear={handleYearChange}
-          />
-
-          {loading ? (
-            <Loader />
-          ) : (
-            <>
-              {isMobile ? (
-                <LineChart data={salesData} aspectRatio={1 / 0.72} />
+              {loading ? (
+                <Loader />
               ) : (
-                <LineChart data={salesData} aspectRatio={1 / 0.4} />
+                <>
+                  <LineChart
+                    data={salesData}
+                    aspectRatio={isMobile ? 1 / 0.72 : 1 / 0.4}
+                  />
+                </>
               )}
-            </>
-          )}
-        </Box>
-      </Box>
-    </div>
-}</>
+            </Box>
+          </Box>
+        </div>
+      )}
+    </>
   );
 };
 
-export default Sidebar;
+export default Index;

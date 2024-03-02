@@ -1,7 +1,3 @@
-To include the detail about using Redux Thunk for data fetching in your README file, you can add this information under the "Technologies Used" section and briefly mention it in the "Data Fetching" section to highlight its role in asynchronous operations. Here’s how you could update those sections:
-
----
-
 # Analytics Dashboard
 
 This project is a responsive and interactive dashboard designed to visualize data from a fictional platform. Developed with Next.js and React Chart.js, it showcases skills in data visualization, interactivity, and responsiveness. The application utilizes dynamic imports to reduce bundle size and is styled using Tailwind CSS for a sleek, modern look. It has been deployed on Netlify for public access.
